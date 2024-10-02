@@ -18,6 +18,8 @@ class ProfileController extends Controller
 
     function updateProfile(ProfileUpdateRequest $request) : RedirectResponse
     {
+        dd($request->all());
+        
         $user = Auth::user();
 
         $user->name = $request->name;
@@ -31,7 +33,7 @@ class ProfileController extends Controller
 
     function updatePassword(ProfilePasswordUpdateRequest $request) : RedirectResponse
      {
-   
+
 
         $user = Auth::user();
         $user->password = bcrypt($request->password);
