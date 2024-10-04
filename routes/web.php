@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,9 +23,15 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 /** Admin Auth Routes */
 Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
 
-Route::get('/dashboard', function () {
+/* Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard'); */
+
+Route::group(['middleware' => 'auth'], function(){
+ 
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
