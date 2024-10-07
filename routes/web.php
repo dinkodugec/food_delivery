@@ -21,7 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 /** Admin Auth Routes */
-Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('admin/login', [AdminAuthController::class, 'index'])->name('admin.login');
+    Route::get('admin/forget-password', [AdminAuthController::class, 'forgetPassword'])->name('admin.forget-password');
+});
 
 /* Route::get('/dashboard', function () {
     return view('dashboard');
