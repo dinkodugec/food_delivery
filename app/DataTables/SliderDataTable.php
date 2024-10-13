@@ -14,7 +14,7 @@ use Yajra\DataTables\Services\DataTable;
 
 class SliderDataTable extends DataTable
 {
-    /**
+      /**
      * Build the DataTable class.
      *
      * @param QueryBuilder $query Results from query() method.
@@ -22,9 +22,15 @@ class SliderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'slider.action')
+            ->addColumn('action', function($query){
+                $edit = "<a href='".route('admin.slider.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
+                $delete = "<a href='' class='btn btn-danger ml-2'><i class='fas fa-trash'></i></a>";
+
+                return $edit.$delete;
+            })
             ->setRowId('id');
     }
+
 
     /**
      * Get the query source of dataTable.
@@ -62,19 +68,16 @@ class SliderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
+
             Column::make('id'),
             Column::make('image'),
             Column::make('title'),
             Column::computed('action')
             ->exportable(false)
             ->printable(false)
-            ->width(60)
+            ->width(150)
             ->addClass('text-center'),
+
         ];
     }
 
@@ -86,3 +89,7 @@ class SliderDataTable extends DataTable
         return 'Slider_' . date('YmdHis');
     }
 }
+
+/*
+
+ */
