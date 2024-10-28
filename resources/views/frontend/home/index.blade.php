@@ -23,8 +23,8 @@
     <!--=============================
             OFFER ITEM START
         ==============================-->
- {{--    @include('frontend.home.components.offer_item')
- --}}
+     @include('frontend.home.components.offer_item')
+
     <!-- CART POPUT START -->
    {{--  @include('frontend.home.components.cart_popup') --}}
     <!-- CART POPUT END -->

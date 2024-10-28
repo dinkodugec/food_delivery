@@ -6,20 +6,22 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\WhyChooseUsController;
 
-     Route::group(['prefix' => 'admin', 'as' => 'admin.'], function(){
-     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-         /** Slider Routes */
+    /** Slider Routes */
     Route::resource('slider', SliderController::class);
 
+    /** Why choose us Routes */
+    Route::resource('why_choose_us', WhyChooseUsController::class);
 
-        /** Profile Routes */
+
+    /** Profile Routes */
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
 
     Route::put('profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
 
     Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-
-
 });
