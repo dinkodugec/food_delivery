@@ -15,6 +15,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('slider', SliderController::class);
 
     /** Why choose us Routes */
+    Route::put('why-choose-title-update', [WhyChooseUsController::class, 'updateTitle'])->name('why-choose-title.update');
+    //always register your route before resource controller 
     Route::resource('why_choose_us', WhyChooseUsController::class);
 
 
