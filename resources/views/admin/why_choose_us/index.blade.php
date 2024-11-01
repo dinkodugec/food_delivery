@@ -53,6 +53,23 @@
 
     </section>
 
+    <section class="section">
+
+        <div class="card card-primary">
+            <div class="card-header">
+                <h4>All Items</h4>
+                <div class="card-header-action">
+                    <a href="{{ route('admin.why_choose_us.create') }}" class="btn btn-primary">
+                        Create new
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ $dataTable->table() }}
+            </div>
+        </div>
+    </section>
+
 
 @endsection
 
