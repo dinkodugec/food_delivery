@@ -31,20 +31,6 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </form>
-
-                            <div class="form-group">
-                                <label for="">Top Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Main Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="">Sub Title</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
