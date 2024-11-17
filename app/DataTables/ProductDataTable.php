@@ -22,45 +22,42 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function($query){
-                $edit = "<a href='".route('admin.product.edit', $query->id)."' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
-                $delete = "<a href='".route('admin.product.destroy', $query->id)."' class='btn btn-danger delete-item mx-2'><i class='fas fa-trash'></i></a>";
+            ->addColumn('action', function ($query) {
+                $edit = "<a href='" . route('admin.product.edit', $query->id) . "' class='btn btn-primary'><i class='fas fa-edit'></i></a>";
+                $delete = "<a href='" . route('admin.product.destroy', $query->id) . "' class='btn btn-danger delete-item mx-2'><i class='fas fa-trash'></i></a>";
 
                 $more = '<div class="btn-group dropleft">
                 <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cog"></i></button>
                 <div class="dropdown-menu dropleft" x-placement="left-start" style="position: absolute; transform: translate3d(-2px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
+
+                <a class="dropdown-item" href="' . route('admin.product-gallery.show-index', $query->id) . '">Product Gallery</a>
                 </div>
               </div>';
 
-                return $edit.$delete.$more;
+                return $edit . $delete . $more;
             })
-            ->addColumn('price', function($query){
-                return '$'.$query->price;
+            ->addColumn('price', function ($query) {
+                return '$' . $query->price;
             })
-            ->addColumn('offer_price', function($query){
-                return '$'.$query->offer_price;
+            ->addColumn('offer_price', function ($query) {
+                return '$' . $query->offer_price;
             })
-            ->addColumn('status', function($query){
-                if($query->status === 1){
+            ->addColumn('status', function ($query) {
+                if ($query->status === 1) {
                     return '<span class="badge badge-primary">Active</span>';
-                }else {
+                } else {
                     return '<span class="badge badge-danger">InActive</span>';
                 }
             })
-            ->addColumn('show_at_home', function($query){
-                if($query->show_at_home === 1){
+            ->addColumn('show_at_home', function ($query) {
+                if ($query->show_at_home === 1) {
                     return '<span class="badge badge-primary">Yes</span>';
-                }else {
+                } else {
                     return '<span class="badge badge-danger">No</span>';
                 }
             })
-            ->addColumn('image', function($query){
-                return '<img width="60px" src="'.asset($query->thumb_image).'">';
+            ->addColumn('image', function ($query) {
+                return '<img width="60px" src="' . asset($query->thumb_image) . '">';
             })
             ->rawColumns(['offer_price', 'price', 'status', 'show_at_home', 'action', 'image'])
             ->setRowId('id');
@@ -80,20 +77,20 @@ class ProductDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('product-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('product-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -111,10 +108,10 @@ class ProductDataTable extends DataTable
             Column::make('show_at_home'),
             Column::make('status'),
             Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->width(150)
-            ->addClass('text-center'),
+                ->exportable(false)
+                ->printable(false)
+                ->width(150)
+                ->addClass('text-center'),
         ];
     }
 
