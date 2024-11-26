@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductSize;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -17,7 +18,8 @@ class ProductSizeController extends Controller
     public function index(string $productId) : View
     {
         $product = Product::findOrFail($productId);
-        return view('admin.product.size.product-size.index', compact('product'));
+        $sizes = ProductSize::where('product_id', $product->id)->get();
+        return view('admin.product.size.product-size.index', compact('product', 'sizes'));
     }
 
     /**
@@ -79,8 +81,15 @@ class ProductSizeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) : Response
     {
-        //
+        try{
+            $image = ProductSize::findOrFail($id);
+            $image->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        }catch(\Exception $e){
+            return response(['status' => 'error', 'message' => 'something went wrong!']);
+        }
     }
 }
