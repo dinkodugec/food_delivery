@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ProductOption;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class ProductOptionController extends Controller
@@ -80,8 +81,15 @@ class ProductOptionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id) : Response
     {
-        //
+        try{
+            $image = ProductOption::findOrFail($id);
+            $image->delete();
+
+            return response(['status' => 'success', 'message' => 'Deleted Successfully!']);
+        }catch(\Exception $e){
+            return response(['status' => 'error', 'message' => 'something went wrong!']);
+        }
     }
 }
