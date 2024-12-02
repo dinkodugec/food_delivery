@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\SectionTitle;
+use App\Models\Product;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
 use Illuminate\Contracts\View\View;
@@ -13,7 +15,7 @@ use Illuminate\Support\Collection;
 class FrontendController extends Controller
 {
     function index() : View
-    
+
      {
         $sectionTitles = $this->getSectionTitles();
 
@@ -21,7 +23,15 @@ class FrontendController extends Controller
 
         $whyChooseUs = WhyChooseUs::where('status', 1)->get();
 
-        return view('frontend.home.index', compact('sliders', 'sectionTitles', 'whyChooseUs'));
+        $categories = Category::where(['show_at_home' => 1, 'status' => 1])->get();
+
+        return view('frontend.home.index',
+            compact(
+                'sliders',
+                'sectionTitles',
+                'whyChooseUs',
+                'categories'
+            ));
     }
 
 
