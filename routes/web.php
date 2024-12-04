@@ -39,11 +39,21 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
+
 /* Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 }); */
 
+
+
+/** Show Home page */
+Route::get('/', [FrontendController::class, 'index'])->name('home');
+
 require __DIR__.'/auth.php';
+/** Show Product details page */
+Route::get('/product/{slug}', [FrontendController::class, 'showProduct'])->name('product.show');
+
+
 
