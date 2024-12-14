@@ -39,7 +39,7 @@
                                             @method('PUT')
                                             <div class="form-group">
                                                 <label for="">Site Name</label>
-                                                <input name="site_name" type="text" class="form-control">
+                                                <input name="site_name" type="text"  value="{{config('settings.site_name')} class="form-control">
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Default Currency</label>
@@ -52,7 +52,7 @@
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="">Currency Icon</label>
-                                                        <input name="site_currency_icon" type="text"
+                                                        <input name="site_currency_icon"  value="{{ config('settings.site_currency_icon') }} type="text"
                                                             class="form-control">
                                                     </div>
                                                 </div>
@@ -61,8 +61,8 @@
                                                         <label for="">Currency Icon Position</label>
                                                         <select name="site_currency_icon_position" id=""
                                                             class="select2 form-control">
-                                                            <option value="right">Right</option>
-                                                            <option value="left">Left</option>
+                                                               <option @selected(config('settings.site_currency_icon_position') === 'right') value="right">Right</option>
+                                                        <option @selected(config('settings.site_currency_icon_position') === 'left') value="left">Left</option>
                                                         </select>
                                                     </div>
                                                 </div>
