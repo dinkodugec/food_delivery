@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Services\SettingsService;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,9 @@ class SettingController extends Controller
         }
 
         toastr()->success('Updated Successfully!');
+
+        $settingsService = app(SettingsService::class);
+        $settingsService->clearCachedSettings();
 
         return redirect()->back();
     }
