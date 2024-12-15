@@ -60,3 +60,4 @@ Route::get('/load-product-modal/{productId}', [FrontendController::class, 'loadP
 
 
 
+
