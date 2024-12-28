@@ -5,22 +5,23 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Cart;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
     /**
      *  Add product in to cart
      */
-    public function addToCart(Request $request)
+    function addToCart(Request $request)
     {
-        /*  dd($request->all());
- */
         try {
-
             $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
             $productSize = $product->productSizes->where('id', $request->product_size)->first();
             $productOptions = $product->productOptions->whereIn('id', $request->product_option);
+
             $options = [
                 'product_size' => [],
                 'product_options' => [],
@@ -31,7 +32,7 @@ class CartController extends Controller
             ];
 
             if ($productSize !== null) {
-                $options['product_size'][] = [
+                $options['product_size'] = [
                     'id' => $productSize?->id,
                     'name' => $productSize?->name,
                     'price' => $productSize?->price
@@ -45,7 +46,6 @@ class CartController extends Controller
                     'price' => $option->price
                 ];
             }
-            /*   dd($options); */
 
             Cart::add([
                 'id' => $product->id,
@@ -60,5 +60,9 @@ class CartController extends Controller
         } catch (\Exception $e) {
             return response(['status' => 'error', 'message' => 'Something went wrong!'], 500);
         }
+    }
+
+    function getCartProduct() {
+        return view('frontend.layouts.ajax.sidebar-cart-item')->render();
     }
 }
