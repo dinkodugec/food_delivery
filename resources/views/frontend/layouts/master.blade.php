@@ -31,7 +31,7 @@
         <div class="overlay">
             <span class="loader"></span>
         </div>
-     {{--   {{ Cart::destroy(); }} --destroy cart/items --}}
+       {{--  {{ Cart::destroy(); }} cart destroy --}}
     </div>
 
     <!--=============================
