@@ -75,4 +75,9 @@ class CartController extends Controller
             return response(['status' => 'error', 'message' => 'Sorry something went wrong!'], 500);
         }
     }
+
+    function index() : View
+     {
+        return view('frontend.pages.cart-view');
+    }
 }
