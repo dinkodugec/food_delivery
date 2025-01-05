@@ -129,7 +129,7 @@
                 let currentValue = parseInt(inputField.val());
                 let rowId = inputField.data("id");
                 inputField.val(currentValue + 1);
-                
+
                 cartQtyUpdate(rowId, inputField.val());
             });
             $('.decrement').on('click', function(){
@@ -153,12 +153,17 @@
                         'qty' : qty
                     },
                     beforeSend: function(){
+                        showLoader()
                     },
                     success: function(response){
                     },
                     error: function(xhr, status, error){
+                        let errorMessage = xhr.responseJSON.message;
+                        hideLoader();
+                        toastr.error(errorMessage);
                     },
                     complete: function(){
+                        hideLoader();
                     }
                 })
             }
