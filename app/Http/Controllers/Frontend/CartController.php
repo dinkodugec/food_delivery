@@ -7,6 +7,7 @@ use App\Models\Product;
 use Cart;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
@@ -79,5 +80,15 @@ class CartController extends Controller
     function index() : View
      {
         return view('frontend.pages.cart-view');
+    }
+
+    function cartQtyUpdate(Request $request) : Response {
+        try{
+            Cart::update($request->rowId, $request->qty);
+            return response(['status' => 'success', 'message' => 'Updated Cart Successfully!']);
+        }catch(\Exception $e){
+            logger($e); //log the error
+            return response(['status' => 'error', 'message' => 'Something went wrong']);
+        }
     }
 }

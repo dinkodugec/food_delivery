@@ -69,5 +69,7 @@ Route::get('cart-product-remove/{rowId}', [CartController::class, 'cartProductRe
 /** Cart Page Routes */
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
+Route::post('/cart-update-qty', [CartController::class, 'cartQtyUpdate'])->name('cart.quantity-update');
+
 
 
