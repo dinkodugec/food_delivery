@@ -82,7 +82,8 @@ class CartController extends Controller
         return view('frontend.pages.cart-view');
     }
 
-    function cartQtyUpdate(Request $request) : Response {
+    function cartQtyUpdate(Request $request) : Response
+     {
         try{
             Cart::update($request->rowId, $request->qty);
             return response(['product_total' => productTotal($request->rowId)], 200);
@@ -90,5 +91,11 @@ class CartController extends Controller
             logger($e); //log the error
             return response(['status' => 'error', 'message' => 'Something went wrong']);  return response(['status' => 'error', 'message' => 'Something went wrong please reload the page.'], 500);
         }
+    }
+
+    function cartDestroy()
+     {
+        Cart::destroy();
+        return redirect()->back();
     }
 }

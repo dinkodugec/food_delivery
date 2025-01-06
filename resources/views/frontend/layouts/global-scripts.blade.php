@@ -67,10 +67,10 @@ function hideLoader(){
                 $('.overlay-container').removeClass('d-none');
                 $('.overlay').addClass('active');
             },
-            success: function(responce){
-                if(responce.status === 'success'){
+            success: function(response){
+                if(response.status === 'success'){
                     updateSidebarCart(function() {
-                        toastr.success(responce.message);
+                        toastr.success(response.message);
                         $('.overlay').removeClass('active');
                         $('.overlay-container').addClass('d-none');
                     })
