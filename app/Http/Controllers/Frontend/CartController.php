@@ -9,17 +9,27 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class CartController extends Controller
 {
+
+    function index() : View {
+        return view('frontend.pages.cart-view');
+    }
+
     /**
      *  Add product in to cart
      */
     function addToCart(Request $request)
     {
+        $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
+        if($product->quantity < $request->quantity){
+            throw ValidationException::withMessages(['Quantity is not available!']);
+        }
+
         try {
-            $product = Product::with(['productSizes', 'productOptions'])->findOrFail($request->product_id);
             $productSize = $product->productSizes->where('id', $request->product_size)->first();
             $productOptions = $product->productOptions->whereIn('id', $request->product_option);
 
@@ -65,7 +75,7 @@ class CartController extends Controller
     }
 
     function getCartProduct() {
-        return view('frontend.layouts.ajax.sidebar-cart-item')->render();
+        return view('frontend.layouts.ajax-files.sidebar-cart-item')->render();
     }
 
     function cartProductRemove($rowId) {
@@ -77,24 +87,25 @@ class CartController extends Controller
         }
     }
 
-    function index() : View
-     {
-        return view('frontend.pages.cart-view');
-    }
+    function cartQtyUpdate(Request $request) : Response {
+        $cartItem = Cart::get($request->rowId);
+        $product = Product::findOrFail($cartItem->id);
 
-    function cartQtyUpdate(Request $request) : Response
-     {
+        if($product->quantity < $request->qty){
+            return response(['status' => 'error', 'message' => 'Quantity is not available!', 'qty' => $cartItem->qty]);
+        }
+
         try{
-            Cart::update($request->rowId, $request->qty);
-            return response(['product_total' => productTotal($request->rowId)], 200);
+            $cart = Cart::update($request->rowId, $request->qty);
+            return response(['product_total' => productTotal($request->rowId), 'qty' => $cart->qty], 200);
+
         }catch(\Exception $e){
-            logger($e); //log the error
-            return response(['status' => 'error', 'message' => 'Something went wrong']);  return response(['status' => 'error', 'message' => 'Something went wrong please reload the page.'], 500);
+            logger($e);
+            return response(['status' => 'error', 'message' => 'Something went wrong please reload the page.'], 500);
         }
     }
 
-    function cartDestroy()
-     {
+    function cartDestroy() {
         Cart::destroy();
         return redirect()->back();
     }
