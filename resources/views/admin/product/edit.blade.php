@@ -44,9 +44,16 @@
                     <input type="text" name="price" class="form-control" value="{{ $product->price }}">
                 </div>
 
+
+
                 <div class="form-group">
                     <label>Offer Price</label>
                     <input type="text" name="offer_price" class="form-control" value="{{ $product->offer_price }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="text" name="quantity" class="form-control" value="{{ $product->quantity }}">
                 </div>
 
                 <div class="form-group">
