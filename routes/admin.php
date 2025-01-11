@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductGalleryController;
+use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\ProductOptionController;
 use App\Http\Controllers\Admin\ProductSizeController;
 use App\Http\Controllers\Admin\SliderController;
@@ -53,5 +54,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
      /** Setting Routes */
      Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
      Route::put('/general-setting', [SettingController::class, 'UpdateGeneralSetting'])->name('general-setting.update');
+
+        /** Coupon Routes */
+   Route::resource('coupon', CouponController::class);
 
 });
