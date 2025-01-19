@@ -95,4 +95,9 @@ function hideLoader(){
     $('.overlay-container').addClass('d-none');
 }
 
+/** get current cart total amount*/
+function getCartTotal(){
+    return parseInt("{{ cartTotal() }}");
+}
+
     </script>
