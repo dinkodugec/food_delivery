@@ -8,8 +8,9 @@ use App\Models\SectionTitle;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\WhyChooseUs;
+use Illuminate\Http\Response;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\Client\Response as ClientResponse;
 use Illuminate\Support\Collection;
 
 class FrontendController extends Controller
@@ -71,6 +72,14 @@ class FrontendController extends Controller
         return view('frontend.layouts.ajax.product-popup-modal', compact('product'))->render();
 
     }
+
+    function applyCoupon()
+
+     {
+
+
+
+     }
 
 
 
