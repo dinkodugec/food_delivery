@@ -75,13 +75,13 @@ class CartController extends Controller
     }
 
     function getCartProduct() {
-        return view('frontend.layouts.ajax-files.sidebar-cart-item')->render();
+        return view('frontend.layouts.ajax.sidebar-cart-item')->render();
     }
 
     function cartProductRemove($rowId) {
         try {
             Cart::remove($rowId);
-            return response(['status' => 'success', 'message' => 'Item has been removed!'], 200);
+            return response(['status' => 'success', 'message' => 'Item has been removed!', 'cart_total' => cartTotal()], 200);
         }catch(\Exception $e){
             return response(['status' => 'error', 'message' => 'Sorry something went wrong!'], 500);
         }
@@ -97,7 +97,13 @@ class CartController extends Controller
 
         try{
             $cart = Cart::update($request->rowId, $request->qty);
-            return response(['product_total' => productTotal($request->rowId), 'qty' => $cart->qty], 200);
+            return response([
+                'status' => 'success',
+                'product_total' => productTotal($request->rowId),
+                'qty' => $cart->qty,
+                'cart_total' => cartTotal(),
+                'grand_cart_total' => grandCartTotal()
+            ], 200);
 
         }catch(\Exception $e){
             logger($e);
@@ -107,6 +113,7 @@ class CartController extends Controller
 
     function cartDestroy() {
         Cart::destroy();
+        session()->forget('coupon');
         return redirect()->back();
     }
 }
