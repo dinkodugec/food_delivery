@@ -9,7 +9,7 @@
                 <h4>Create Delivery Area</h4>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.delivery-area.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label>Area Name</label>
