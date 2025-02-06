@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('delivery_areas', function (Blueprint $table) {
+            $table->id();
             $table->string('area_name');
             $table->string('min_delivery_time');
             $table->string('max_delivery_time');
