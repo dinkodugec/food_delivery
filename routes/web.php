@@ -81,3 +81,7 @@ Route::post('/apply-coupon', [FrontendController::class, 'applyCoupon'])->name('
 Route::get('/destroy-coupon', [FrontendController::class, 'destroyCoupon'])->name('destroy-coupon');
 
 Route::post('address', [DashboardController::class, 'createAddress'])->name('address.store');
+
+Route::put('address/{id}/edit', [DashboardController::class, 'updateAddress'])->name('address.update');
+
+Route::delete('address/{id}', [DashboardController::class, 'destroyAddress'])->name('address.destroy');

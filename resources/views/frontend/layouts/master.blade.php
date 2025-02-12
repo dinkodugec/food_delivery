@@ -142,6 +142,8 @@
     <!-- ex zoom js -->
     <script src="{{ asset('frontend/js/jquery.exzoom.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script src="{{ asset('frontend/js/toastr.min.js') }}"></script>
 
     <!--main/custom js-->
