@@ -5,6 +5,7 @@ use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ProfileController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use Illuminate\Support\Facades\Route;
@@ -85,3 +86,8 @@ Route::post('address', [DashboardController::class, 'createAddress'])->name('add
 Route::put('address/{id}/edit', [DashboardController::class, 'updateAddress'])->name('address.update');
 
 Route::delete('address/{id}', [DashboardController::class, 'destroyAddress'])->name('address.destroy');
+
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+});
