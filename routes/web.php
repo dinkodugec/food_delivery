@@ -90,4 +90,5 @@ Route::delete('address/{id}', [DashboardController::class, 'destroyAddress'])->n
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::get('checkout/{id}/delivery-cal', [CheckoutController::class, 'CalculateDeliveryCharge'])->name('checkout.delivery-cal');
 });
