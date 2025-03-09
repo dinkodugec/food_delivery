@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Frontend\DashboardController;
+use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\ProfileController;
@@ -91,4 +92,8 @@ Route::delete('address/{id}', [DashboardController::class, 'destroyAddress'])->n
 Route::group(['middleware' => 'auth'], function(){
     Route::get('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     Route::get('checkout/{id}/delivery-cal', [CheckoutController::class, 'CalculateDeliveryCharge'])->name('checkout.delivery-cal');
+    Route::post('checkout', [CheckoutController::class, 'checkoutRedirect'])->name('checkout.redirect');
+
+    /** Payment Routes */
+    Route::get('payment', [PaymentController::class, 'index'])->name('payment.index');
 });

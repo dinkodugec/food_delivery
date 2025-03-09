@@ -38,7 +38,9 @@ class CheckoutController extends Controller
 
         $selectedAddress = $address->address.', Aria: '. $address->deliveryArea?->area_name;
 
-        session('address', $selectedAddress);
+        session()->put('address', $selectedAddress);
+        session()->put('delivery_fee', $address->deliveryArea->delivery_fee);
+
 
         return response(['redirect_url' => route('payment.index')]);
     }
