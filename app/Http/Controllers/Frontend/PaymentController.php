@@ -26,4 +26,11 @@ class PaymentController extends Controller
             'grandTotal'
         ));
     }
+
+    function makePayment(Request $request)
+     {
+        $request->validate([
+            'payment_gateway' => ['required', 'string', 'in:paypal']
+        ]);
+    }
 }
