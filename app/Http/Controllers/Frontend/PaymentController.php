@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -27,10 +29,18 @@ class PaymentController extends Controller
         ));
     }
 
-    function makePayment(Request $request)
+    function makePayment(Request $request, OrderService $orderService )
      {
         $request->validate([
             'payment_gateway' => ['required', 'string', 'in:paypal']
         ]);
+
+             /** Create Order */
+             try{
+                $orderService->createOrder();
+
+            }catch(\Exception $e) {
+                throw $e;
+            }
     }
 }
