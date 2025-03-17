@@ -31,16 +31,16 @@ class PaymentController extends Controller
 
     function makePayment(Request $request, OrderService $orderService )
      {
+        
         $request->validate([
             'payment_gateway' => ['required', 'string', 'in:paypal']
         ]);
 
-             /** Create Order */
-             try{
-                $orderService->createOrder();
 
-            }catch(\Exception $e) {
-                throw $e;
-            }
-    }
+             /** Create Order */
+             if($orderService->createOrder()){
+                // redirect user to the payment host
+                return true;
+             }
+   }
 }
