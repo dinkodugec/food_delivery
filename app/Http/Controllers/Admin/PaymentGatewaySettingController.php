@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PaymentGatewaySetting;
+use App\Services\PaymentGatewaySettingService;
  use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
 
@@ -50,6 +51,9 @@ class PaymentGatewaySettingController extends Controller
                 ['value' => $value]
             );
         }
+
+        $settingsService = app(PaymentGatewaySettingService::class);
+        $settingsService->clearCachedSettings();
 
         toastr()->success('Updated Successfully!');
         return redirect()->back();

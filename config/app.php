@@ -182,6 +182,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\SettingsServiceProvider::class,
+        App\Providers\PaymentGatewaySettingServiceProvider::class,
 
         /*
          * Package Service Providers...
