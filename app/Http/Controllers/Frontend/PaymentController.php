@@ -31,7 +31,7 @@ class PaymentController extends Controller
 
     function makePayment(Request $request, OrderService $orderService )
      {
-        
+
         $request->validate([
             'payment_gateway' => ['required', 'string', 'in:paypal']
         ]);
@@ -40,7 +40,31 @@ class PaymentController extends Controller
              /** Create Order */
              if($orderService->createOrder()){
                 // redirect user to the payment host
-                return true;
+                switch ($request->payment_gateway) {
+                    case 'paypal':
+                        return response(['redirect_url' => route('paypal.payment')]);
+                        break;
+
+                    default:
+                        break;
+                }
              }
    }
+
+      /** Paypal Payment  */
+
+      function payWhitPaypal()
+      {
+        return 'Payment processing';
+      }
+
+      function paypalSuccess()
+      {
+
+      }
+
+      function paypalCancel()
+       {
+
+       }
 }
